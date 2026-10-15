@@ -183,6 +183,8 @@ function view(i) {
     if (isVideo) {
         m.autoplay = true;
         m.playsInline = true;
+        m.volume = vol.value / 100;
+        m.muted = mute.getAttribute('aria-pressed') === 'true';
         m.addEventListener('click', () => m.paused ? m.play() : m.pause());
         m.addEventListener('timeupdate', () => {
             if (m.duration) seek.value = m.currentTime / m.duration * 1000;
@@ -222,11 +224,20 @@ mp.addEventListener('click', e => {
     const b = e.target.closest('[data-mp]');
     if (b && video()) mpActions[b.dataset.mp](video());
 });
+const vol = document.getElementById('mp-vol');
+const mute = document.getElementById('mp-mute');
+vol.addEventListener('input', () => { const v = video(); if (v) v.volume = vol.value / 100; });
+mute.addEventListener('click', () => {
+    const on = mute.getAttribute('aria-pressed') !== 'true';
+    mute.setAttribute('aria-pressed', on);
+    const v = video();
+    if (v) v.muted = on;
+});
 seek.addEventListener('input', () => { const v = video(); if (v?.duration) v.currentTime = seek.value / 1000 * v.duration; });
 document.getElementById('viewer-prev').addEventListener('click', () => view(shown - 1));
 document.getElementById('viewer-next').addEventListener('click', () => view(shown + 1));
 win('viewer').addEventListener('keydown', e => {
-    if (e.target === seek) return;
+    if (e.target === seek || e.target === vol) return;
     if (e.key === 'ArrowLeft') view(shown - 1);
     if (e.key === 'ArrowRight') view(shown + 1);
 });

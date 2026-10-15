@@ -142,6 +142,16 @@ hr.etched { border: 0; border-top: 1px solid var(--shadow); border-bottom: 1px s
 #win-viewer .menubar ~ .win-body { box-shadow: var(--sunken); }
 
 /* Media Player transport */
+.mp-mute { flex: none; width: 22px; height: 22px; display: grid; place-items: center; margin-left: 6px; }
+.mp-mute svg { shape-rendering: crispEdges; }
+.mp-mute .mp-x, .mp-mute[aria-pressed="true"] path[fill="#808080"] { display: none; }
+.mp-mute[aria-pressed="true"] .mp-x { display: inline; }
+.mp-mute:focus-visible { outline: 1px dotted #000; outline-offset: 0; }
+.mp-vol { -webkit-appearance: none; appearance: none; flex: none; width: 70px; height: 21px; background: transparent; margin: 0 2px 0 2px; }
+.mp-vol::-webkit-slider-runnable-track { height: 4px; background: #fff; box-shadow: var(--sunken); }
+.mp-vol::-moz-range-track { height: 4px; background: #fff; box-shadow: var(--sunken); }
+.mp-vol::-webkit-slider-thumb { -webkit-appearance: none; width: 7px; height: 15px; margin-top: -5px; background: var(--face); box-shadow: var(--raised); border: 0; border-radius: 0; }
+.mp-vol::-moz-range-thumb { width: 7px; height: 15px; background: var(--face); box-shadow: var(--raised); border: 0; border-radius: 0; }
 .mp { flex: none; padding: 4px 2px 0; }
 .mp[hidden], .statusbar[hidden] { display: none; }
 .mp-row { display: flex; align-items: center; gap: 0; margin-top: 4px; }
