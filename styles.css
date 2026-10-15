@@ -153,7 +153,9 @@ hr.etched { border: 0; border-top: 1px solid var(--shadow); border-bottom: 1px s
 .mp-vol::-webkit-slider-thumb { -webkit-appearance: none; width: 7px; height: 15px; margin-top: -5px; background: var(--face); box-shadow: var(--raised); border: 0; border-radius: 0; }
 .mp-vol::-moz-range-thumb { width: 7px; height: 15px; background: var(--face); box-shadow: var(--raised); border: 0; border-radius: 0; }
 .mp { flex: none; padding: 4px 2px 0; }
-.mp[hidden], .statusbar[hidden] { display: none; }
+.mp-btn:disabled svg, .mp-mute:disabled svg { filter: grayscale(1) opacity(.45) drop-shadow(1px 1px #fff); }
+.mp-btn:disabled:active { box-shadow: var(--raised); padding: 0; }
+.mp-seek:disabled, .mp-vol:disabled { opacity: .6; }
 .mp-row { display: flex; align-items: center; gap: 0; margin-top: 4px; }
 .mp-btn { min-width: 23px; width: 23px; padding: 0; }
 .mp-btn:active { padding: 2px 0 0 1px; }

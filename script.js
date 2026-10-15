@@ -71,7 +71,7 @@ function focusNext() {
 
 function close(w) {
     w.classList.remove('open', 'active', 'max', 'min');
-    if (w.id === 'win-viewer') document.getElementById('viewer-stage').replaceChildren(); // stop video audio
+    if (w.id === 'win-viewer') clearStage();
     tasks.querySelector(`[data-win="${w.id}"]`)?.remove();
     focusNext();
 }
@@ -172,6 +172,11 @@ document.querySelectorAll('[role="tablist"]').forEach(list => {
 
 // Photo viewer: Back/Next step through the gallery the photo was opened from.
 const stage = document.getElementById('viewer-stage');
+// Detached videos keep playing, so pause before swapping them out.
+function clearStage(next) {
+    stage.querySelector('video')?.pause();
+    stage.replaceChildren(...(next ? [next] : []));
+}
 let thumbs = [];
 let shown = 0;
 function view(i) {
@@ -187,16 +192,17 @@ function view(i) {
         m.muted = mute.getAttribute('aria-pressed') === 'true';
         m.addEventListener('click', () => m.paused ? m.play() : m.pause());
         m.addEventListener('timeupdate', () => {
+            if (!m.isConnected) return;
             if (m.duration) seek.value = m.currentTime / m.duration * 1000;
-            mpTime.textContent = `${fmt(m.currentTime)} / ${fmt(m.duration || 0)}`;
+            mpTime.textContent = `${shown + 1} of ${thumbs.length} · ${fmt(m.currentTime)} / ${fmt(m.duration || 0)}`;
         });
     } else m.alt = t.textContent;
-    stage.replaceChildren(m);
-    mp.hidden = !isVideo;
-    bar.hidden = isVideo;
+    clearStage(m);
+    // Same transport for photos and videos so Back/Next never move; video-only controls grey out.
+    mp.querySelectorAll('[data-mp]:not([data-mp="prev"]):not([data-mp="next"]), #mp-seek, #mp-mute, #mp-vol').forEach(c => { c.disabled = !isVideo; });
+    mpTime.textContent = `${shown + 1} of ${thumbs.length}`;
     seek.value = 0;
     document.getElementById('viewer-name').textContent = t.textContent + (isVideo ? ' - Media Player' : ' - Image Viewer');
-    document.getElementById('viewer-pos').textContent = `${shown + 1} of ${thumbs.length}`;
     open('viewer');
 }
 document.querySelectorAll('a.thumb').forEach(t => t.addEventListener('click', e => {
@@ -206,7 +212,6 @@ document.querySelectorAll('a.thumb').forEach(t => t.addEventListener('click', e 
 }));
 // Media Player transport for videos.
 const mp = document.getElementById('mp');
-const bar = document.getElementById('viewer-bar');
 const seek = document.getElementById('mp-seek');
 const mpTime = document.getElementById('mp-time');
 const fmt = s => `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
@@ -222,7 +227,7 @@ const mpActions = {
 };
 mp.addEventListener('click', e => {
     const b = e.target.closest('[data-mp]');
-    if (b && video()) mpActions[b.dataset.mp](video());
+    if (b) mpActions[b.dataset.mp](video());
 });
 const vol = document.getElementById('mp-vol');
 const mute = document.getElementById('mp-mute');
@@ -234,8 +239,6 @@ mute.addEventListener('click', () => {
     if (v) v.muted = on;
 });
 seek.addEventListener('input', () => { const v = video(); if (v?.duration) v.currentTime = seek.value / 1000 * v.duration; });
-document.getElementById('viewer-prev').addEventListener('click', () => view(shown - 1));
-document.getElementById('viewer-next').addEventListener('click', () => view(shown + 1));
 win('viewer').addEventListener('keydown', e => {
     if (e.target === seek || e.target === vol) return;
     if (e.key === 'ArrowLeft') view(shown - 1);
