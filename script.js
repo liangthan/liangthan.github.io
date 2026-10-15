@@ -170,9 +170,9 @@ document.querySelectorAll('[role="tablist"]').forEach(list => {
     });
 });
 
-// Photo viewer.
-const thumbs = [...document.querySelectorAll('.thumb')];
+// Photo viewer: Back/Next step through the gallery the photo was opened from.
 const stage = document.getElementById('viewer-stage');
+let thumbs = [];
 let shown = 0;
 function view(i) {
     shown = (i + thumbs.length) % thumbs.length;
@@ -186,7 +186,11 @@ function view(i) {
     document.getElementById('viewer-pos').textContent = `${shown + 1} of ${thumbs.length}`;
     open('viewer');
 }
-thumbs.forEach((t, i) => t.addEventListener('click', e => { e.preventDefault(); view(i); }));
+document.querySelectorAll('a.thumb').forEach(t => t.addEventListener('click', e => {
+    e.preventDefault();
+    thumbs = [...t.parentElement.querySelectorAll('a.thumb')];
+    view(thumbs.indexOf(t));
+}));
 document.getElementById('viewer-prev').addEventListener('click', () => view(shown - 1));
 document.getElementById('viewer-next').addEventListener('click', () => view(shown + 1));
 win('viewer').addEventListener('keydown', e => {
@@ -232,5 +236,5 @@ setInterval(tick, 10000);
 
 // Only hide the stacked fallback once everything above has run.
 document.documentElement.classList.add('js');
-const fromHash = { about: 'about', skills: 'skills', projects: 'projects', photos: 'photos', contact: 'contact' }[location.hash.slice(1)];
+const fromHash = { about: 'about', skills: 'skills', projects: 'projects', photos: 'photos', japan: 'japan', vietnam: 'vietnam', contact: 'contact' }[location.hash.slice(1)];
 open(fromHash || 'welcome');
