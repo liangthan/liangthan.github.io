@@ -6,6 +6,8 @@ const startMenu = document.getElementById('start-menu');
 const mobile = matchMedia('(max-width: 640px)');
 let z = 10;
 let cascade = 0;
+let lastPointer = 'mouse';
+addEventListener('pointerdown', e => { lastPointer = e.pointerType; }, true);
 
 const win = id => document.getElementById('win-' + id);
 
@@ -39,26 +41,45 @@ function open(id) {
     }
     w.classList.remove('min');
     focusWin(w);
+    focusInside(w);
+}
+
+function focusInside(w) {
     (w.querySelector('.win-body [tabindex], .win-body button, .win-body a') || w.querySelector('.ctl-close')).focus({ preventScroll: true });
 }
+
+// Keep windows reachable after the viewport changes.
+function clampAll() {
+    if (mobile.matches) return;
+    const r = desktop.getBoundingClientRect();
+    document.querySelectorAll('.window.open').forEach(w => {
+        if (!w.dataset.placed) return place(w);
+        w.style.left = Math.max(40 - w.offsetWidth, Math.min(r.width - 40, w.offsetLeft)) + 'px';
+        w.style.top = Math.max(0, Math.min(r.height - 18, w.offsetTop)) + 'px';
+    });
+}
+addEventListener('resize', clampAll);
 
 function topWindow() {
     return [...document.querySelectorAll('.window.open:not(.min)')].sort((a, b) => b.style.zIndex - a.style.zIndex)[0];
 }
 
+function focusNext() {
+    const next = topWindow();
+    if (next) { focusWin(next); focusInside(next); } else startBtn.focus();
+}
+
 function close(w) {
     w.classList.remove('open', 'active', 'max', 'min');
     tasks.querySelector(`[data-win="${w.id}"]`)?.remove();
-    const next = topWindow();
-    if (next) focusWin(next);
+    focusNext();
 }
 
 function minimize(w) {
     w.classList.add('min');
     w.classList.remove('active');
     tasks.querySelector(`[data-win="${w.id}"]`)?.setAttribute('aria-pressed', 'false');
-    const next = topWindow();
-    if (next) focusWin(next);
+    focusNext();
 }
 
 function addTask(w) {
@@ -66,8 +87,11 @@ function addTask(w) {
     b.className = 'btn';
     b.type = 'button';
     b.dataset.win = w.id;
-    b.innerHTML = `<svg width="16" height="16" aria-hidden="true"><use href="#${w.dataset.icon}"/></svg><span></span>`;
-    b.querySelector('span').textContent = w.dataset.title;
+    const svg = w.querySelector('.titlebar svg')?.cloneNode(true);
+    if (svg) b.append(svg);
+    const label = document.createElement('span');
+    label.textContent = w.dataset.title;
+    b.append(label);
     b.addEventListener('click', () => {
         if (w.classList.contains('active') && !w.classList.contains('min')) minimize(w);
         else { w.classList.remove('min'); focusWin(w); }
@@ -81,7 +105,7 @@ document.querySelectorAll('.icon').forEach(icon => {
     icon.addEventListener('click', e => {
         deselect();
         icon.classList.add('selected');
-        if (e.detail === 0 || e.pointerType === 'touch' || mobile.matches) open(icon.dataset.open);
+        if (e.detail === 0 || lastPointer === 'touch' || mobile.matches) open(icon.dataset.open);
     });
     icon.addEventListener('dblclick', () => open(icon.dataset.open));
 });
@@ -94,7 +118,7 @@ document.addEventListener('click', e => {
     if (!w) return;
     if (e.target.closest('.ctl-close, [data-close]')) close(w);
     else if (e.target.closest('.ctl-min')) minimize(w);
-    else if (e.target.closest('.ctl-max')) w.classList.toggle('max');
+    else if (e.target.closest('.ctl-max')) { focusWin(w); w.classList.toggle('max'); }
 });
 
 // Focus + drag.
@@ -113,8 +137,14 @@ document.querySelectorAll('.window').forEach(w => {
             w.style.left = Math.min(r.width - 40, Math.max(40 - w.offsetWidth, ev.clientX - dx)) + 'px';
             w.style.top = Math.min(r.height - 18, Math.max(0, ev.clientY - dy)) + 'px';
         };
+        const end = () => {
+            bar.removeEventListener('pointermove', move);
+            bar.removeEventListener('pointerup', end);
+            bar.removeEventListener('pointercancel', end);
+        };
         bar.addEventListener('pointermove', move);
-        bar.addEventListener('pointerup', () => bar.removeEventListener('pointermove', move), { once: true });
+        bar.addEventListener('pointerup', end);
+        bar.addEventListener('pointercancel', end);
     });
 });
 
@@ -175,4 +205,7 @@ const tick = () => { clock.textContent = new Date().toLocaleTimeString([], { hou
 tick();
 setInterval(tick, 10000);
 
-open('welcome');
+// Only hide the stacked fallback once everything above has run.
+document.documentElement.classList.add('js');
+const fromHash = { about: 'about', skills: 'skills', projects: 'projects', contact: 'contact' }[location.hash.slice(1)];
+open(fromHash || 'welcome');

@@ -190,9 +190,10 @@ legend { padding: 0 3px; background: var(--face); }
 /* No-JS: plain stacked page */
 html:not(.js) body { overflow: auto; }
 html:not(.js) .desktop { position: static; display: grid; gap: 16px; padding: 16px 16px 48px; }
-html:not(.js) .icons, html:not(.js) .controls, html:not(.js) .taskbar { display: none; }
+html:not(.js) .icons, html:not(.js) .controls, html:not(.js) .tabs, html:not(.js) .taskbar { display: none; }
 html:not(.js) .window { position: static; width: auto; height: auto; max-width: 720px; }
 .noscript { color: #fff; }
+html:not(.js) .tab-panel[hidden] { display: block; }
 
 /* Small screens: every window maximized, icons as a grid */
 @media (max-width: 640px) {
@@ -213,3 +214,4 @@ html:not(.js) .window { position: static; width: auto; height: auto; max-width: 
 @media (max-width: 640px) {
     .js #win-welcome { inset: 16px 16px auto !important; }
 }
+#t-welcome svg { display: none; }
