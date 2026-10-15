@@ -197,7 +197,17 @@ function view(i) {
             mpTime.textContent = `${shown + 1} of ${thumbs.length} · ${fmt(m.currentTime)} / ${fmt(m.duration || 0)}`;
         });
     } else m.alt = t.textContent;
+    m.addEventListener('error', () => {
+        if (!m.isConnected) return;
+        const err = document.createElement('p');
+        err.className = 'viewer-error';
+        err.innerHTML = 'Cannot open this file.<a href="" target="_blank" rel="noopener">Open it directly</a>';
+        err.querySelector('a').href = t.href;
+        clearStage(err);
+    });
     clearStage(m);
+    // Safari ignores autoplay with sound unless play() runs inside the click.
+    if (isVideo) m.play().catch(() => {});
     // Same transport for photos and videos so Back/Next never move; video-only controls grey out.
     mp.querySelectorAll('[data-mp]:not([data-mp="prev"]):not([data-mp="next"]), #mp-seek, #mp-mute, #mp-vol').forEach(c => { c.disabled = !isVideo; });
     mpTime.textContent = `${shown + 1} of ${thumbs.length}`;
@@ -230,6 +240,10 @@ mp.addEventListener('click', e => {
     if (b) mpActions[b.dataset.mp](video());
 });
 const vol = document.getElementById('mp-vol');
+// iOS ignores media volume; hide the slider there and leave mute.
+const probe = document.createElement('video');
+probe.volume = 0.5;
+vol.hidden = probe.volume !== 0.5;
 const mute = document.getElementById('mp-mute');
 vol.addEventListener('input', () => { const v = video(); if (v) v.volume = vol.value / 100; });
 mute.addEventListener('click', () => {

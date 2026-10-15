@@ -132,7 +132,7 @@ hr.etched { border: 0; border-top: 1px solid var(--shadow); border-bottom: 1px s
 .thumb svg { shape-rendering: crispEdges; }
 .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; padding: 10px; align-content: start; }
 .thumb { display: flex; flex-direction: column; align-items: center; gap: 4px; color: #000 !important; text-decoration: none; }
-.thumb img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; background: var(--face); box-shadow: var(--sunken); padding: 2px; }
+.thumb img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: contain; background: var(--face); box-shadow: var(--sunken); padding: 2px; }
 .thumb:focus-visible { outline: none; }
 .thumb:focus-visible span, .thumb:hover span { background: var(--navy); color: #fff; }
 #win-viewer { width: 720px; height: 560px; }
@@ -154,6 +154,8 @@ hr.etched { border: 0; border-top: 1px solid var(--shadow); border-bottom: 1px s
 .mp-vol::-moz-range-thumb { width: 7px; height: 15px; background: var(--face); box-shadow: var(--raised); border: 0; border-radius: 0; }
 .mp { flex: none; padding: 4px 2px 0; }
 .mp-btn:disabled svg, .mp-mute:disabled svg { filter: grayscale(1) opacity(.45) drop-shadow(1px 1px #fff); }
+.viewer-error { position: absolute; inset: 0; display: grid; place-content: center; gap: 6px; color: #fff; text-align: center; }
+.win-body .viewer-error a { color: #fff; }
 .mp-btn:disabled:active { box-shadow: var(--raised); padding: 0; }
 .mp-seek:disabled, .mp-vol:disabled { opacity: .6; }
 .mp-row { display: flex; align-items: center; gap: 0; margin-top: 4px; }
@@ -262,7 +264,11 @@ html:not(.js) #win-viewer { display: none; }
     .titlebar { height: 36px; }
     .ctl { width: 34px; height: 32px; }
     .btn { min-height: 34px; }
-    .mp-btn { width: 40px; min-width: 40px; }
+    .mp-btn { width: 34px; min-width: 34px; }
+    /* Transport + audio on one line, readout below, so nothing clips at 360px */
+    .mp-row { flex-wrap: wrap; row-gap: 4px; }
+    .mp-row #mp-time { order: 1; flex-basis: 100%; margin-left: 0; }
+    .mp-mute { margin-left: auto; }
     .menubar span { padding: 4px 8px; }
     .project h3, .tip-title { font-size: 13px; }
     .notepad { font-size: 15px; }
