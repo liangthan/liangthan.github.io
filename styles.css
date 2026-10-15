@@ -82,7 +82,8 @@ hr.etched { border: 0; border-top: 1px solid var(--shadow); border-bottom: 1px s
 .ctl-min { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='2'%3E%3Cpath d='M0 0h6v2H0z'/%3E%3C/svg%3E"); background-position: 4px 9px; }
 .ctl-min:active { background-position: 5px 10px; }
 .ctl-max { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9'%3E%3Cpath d='M0 0h9v9H0zM1 2v6h7V2z' fill-rule='evenodd'/%3E%3C/svg%3E"); }
-.ctl-close { margin-left: 2px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='7'%3E%3Cpath d='M0 0h2v1h1v1h2V1h1V0h2v1H7v1H6v1H5v1h1v1h1v1h1v1H6V6H5V5H3v1H2v1H0V6h1V5h1V4h1V3H2V2H1V1H0z'/%3E%3C/svg%3E"); }
+.window.max .ctl-max { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='9'%3E%3Cpath d='M2 0h6v6H6V5h1V2H3v1H2zM0 3h6v6H0zM1 5v3h4V5z' fill-rule='evenodd'/%3E%3C/svg%3E"); }
+.ctl-close { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='7'%3E%3Cpath d='M0 0h2v1h1v1h2V1h1V0h2v1H7v1H6v1H5v1h1v1h1v1h1v1H6V6H5V5H3v1H2v1H0V6h1V5h1V4h1V3H2V2H1V1H0z'/%3E%3C/svg%3E"); }
 .menubar { display: flex; padding: 2px 0; flex: none; }
 .menubar span { padding: 1px 6px; }
 .win-body { flex: 1; overflow: auto; padding: 8px; }
