@@ -139,6 +139,22 @@ hr.etched { border: 0; border-top: 1px solid var(--shadow); border-bottom: 1px s
 .viewer { position: relative; overflow: hidden; background: #000; padding: 0; box-shadow: var(--sunken); }
 .viewer img, .viewer video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
 #win-viewer .statusbar { align-items: center; }
+#win-viewer .menubar ~ .win-body { box-shadow: var(--sunken); }
+
+/* Media Player transport */
+.mp { flex: none; padding: 4px 2px 0; }
+.mp[hidden], .statusbar[hidden] { display: none; }
+.mp-row { display: flex; align-items: center; gap: 0; margin-top: 4px; }
+.mp-btn { min-width: 23px; width: 23px; padding: 0; }
+.mp-btn:active { padding: 2px 0 0 1px; }
+.mp-btn svg { fill: #000; }
+.mp-sep { width: 2px; height: 21px; margin: 0 4px; border-left: 1px solid var(--shadow); border-right: 1px solid var(--hi); }
+.mp-row .field-sm { flex: 1; margin-left: 6px; min-height: 21px; display: flex; align-items: center; font-variant-numeric: tabular-nums; }
+.mp-seek { -webkit-appearance: none; appearance: none; width: 100%; height: 21px; background: transparent; margin: 0; }
+.mp-seek::-webkit-slider-runnable-track { height: 4px; background: #fff; box-shadow: var(--sunken); }
+.mp-seek::-moz-range-track { height: 4px; background: #fff; box-shadow: var(--sunken); }
+.mp-seek::-webkit-slider-thumb { -webkit-appearance: none; width: 11px; height: 21px; margin-top: -8px; background: var(--face); box-shadow: var(--raised); border: 0; border-radius: 0; }
+.mp-seek::-moz-range-thumb { width: 11px; height: 21px; background: var(--face); box-shadow: var(--raised); border: 0; border-radius: 0; }
 
 /* Tabs / fieldset */
 .tabs { display: flex; position: relative; z-index: 1; padding-left: 2px; }
@@ -234,6 +250,7 @@ html:not(.js) #win-viewer { display: none; }
     .titlebar { height: 36px; }
     .ctl { width: 34px; height: 32px; }
     .btn { min-height: 34px; }
+    .mp-btn { width: 40px; min-width: 40px; }
     .menubar span { padding: 4px 8px; }
     .project h3, .tip-title { font-size: 13px; }
     .notepad { font-size: 15px; }

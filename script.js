@@ -180,9 +180,20 @@ function view(i) {
     const isVideo = t.href.endsWith('.mp4');
     const m = document.createElement(isVideo ? 'video' : 'img');
     m.src = t.getAttribute('href');
-    if (isVideo) { m.controls = true; m.autoplay = true; m.playsInline = true; } else m.alt = t.textContent;
+    if (isVideo) {
+        m.autoplay = true;
+        m.playsInline = true;
+        m.addEventListener('click', () => m.paused ? m.play() : m.pause());
+        m.addEventListener('timeupdate', () => {
+            if (m.duration) seek.value = m.currentTime / m.duration * 1000;
+            mpTime.textContent = `${fmt(m.currentTime)} / ${fmt(m.duration || 0)}`;
+        });
+    } else m.alt = t.textContent;
     stage.replaceChildren(m);
-    document.getElementById('viewer-name').textContent = t.textContent + ' - Image Viewer';
+    mp.hidden = !isVideo;
+    bar.hidden = isVideo;
+    seek.value = 0;
+    document.getElementById('viewer-name').textContent = t.textContent + (isVideo ? ' - Media Player' : ' - Image Viewer');
     document.getElementById('viewer-pos').textContent = `${shown + 1} of ${thumbs.length}`;
     open('viewer');
 }
@@ -191,9 +202,31 @@ document.querySelectorAll('a.thumb').forEach(t => t.addEventListener('click', e 
     thumbs = [...t.parentElement.querySelectorAll('a.thumb')];
     view(thumbs.indexOf(t));
 }));
+// Media Player transport for videos.
+const mp = document.getElementById('mp');
+const bar = document.getElementById('viewer-bar');
+const seek = document.getElementById('mp-seek');
+const mpTime = document.getElementById('mp-time');
+const fmt = s => `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+const video = () => stage.querySelector('video');
+const mpActions = {
+    play: v => v.play(),
+    pause: v => v.pause(),
+    stop: v => { v.pause(); v.currentTime = 0; },
+    rew: v => { v.currentTime -= 5; },
+    ff: v => { v.currentTime += 5; },
+    prev: () => view(shown - 1),
+    next: () => view(shown + 1),
+};
+mp.addEventListener('click', e => {
+    const b = e.target.closest('[data-mp]');
+    if (b && video()) mpActions[b.dataset.mp](video());
+});
+seek.addEventListener('input', () => { const v = video(); if (v?.duration) v.currentTime = seek.value / 1000 * v.duration; });
 document.getElementById('viewer-prev').addEventListener('click', () => view(shown - 1));
 document.getElementById('viewer-next').addEventListener('click', () => view(shown + 1));
 win('viewer').addEventListener('keydown', e => {
+    if (e.target === seek) return;
     if (e.key === 'ArrowLeft') view(shown - 1);
     if (e.key === 'ArrowRight') view(shown + 1);
 });

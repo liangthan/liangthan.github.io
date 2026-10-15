@@ -335,8 +335,18 @@ Building elegant solutions to complex problems.</p>
                     <button class="ctl ctl-close" type="button" aria-label="Close"></button>
                 </div>
             </header>
+            <div class="menubar" aria-hidden="true"><span><u>F</u>ile</span><span><u>V</u>iew</span><span><u>P</u>lay</span><span><u>H</u>elp</span></div>
             <div class="win-body viewer" id="viewer-stage"></div>
-            <footer class="statusbar">
+            <div class="mp" id="mp" hidden>
+                <input class="mp-seek" id="mp-seek" type="range" min="0" max="1000" value="0" aria-label="Seek">
+                <div class="mp-row">
+                    <button class="btn mp-btn" type="button" data-mp="play" aria-label="Play"><svg width="11" height="9" aria-hidden="true"><path d="M3 0h1v1h1v1h1v1h1v1h1v1H7v1H6v1H5v1H4v1H3z"/></svg></button><button class="btn mp-btn" type="button" data-mp="pause" aria-label="Pause"><svg width="11" height="9" aria-hidden="true"><path d="M2 0h3v9H2zM6 0h3v9H6z"/></svg></button><button class="btn mp-btn" type="button" data-mp="stop" aria-label="Stop"><svg width="11" height="9" aria-hidden="true"><path d="M2 1h7v7H2z"/></svg></button>
+                    <span class="mp-sep"></span>
+                    <button class="btn mp-btn" type="button" data-mp="prev" aria-label="Previous"><svg width="11" height="9" aria-hidden="true"><path d="M0 0h2v9H0zM6 0h1v9H6V8H5V7H4V6H3V5H2V4h1V3h1V2h1V1h1zM10 0h1v9h-1V8H9V7H8V6H7V5H6V4h1V3h1V2h1V1h1z"/></svg></button><button class="btn mp-btn" type="button" data-mp="rew" aria-label="Rewind"><svg width="11" height="9" aria-hidden="true"><path d="M4 0h1v9H4V8H3V7H2V6H1V5H0V4h1V3h1V2h1V1h1zM9 0h1v9H9V8H8V7H7V6H6V5H5V4h1V3h1V2h1V1h1z"/></svg></button><button class="btn mp-btn" type="button" data-mp="ff" aria-label="Fast forward"><svg width="11" height="9" aria-hidden="true"><path d="M1 0h1v1h1v1h1v1h1v1h1v1H5v1H4v1H3v1H2v1H1zM6 0h1v1h1v1h1v1h1v1h1v1h-1v1H9v1H8v1H7v1H6z"/></svg></button><button class="btn mp-btn" type="button" data-mp="next" aria-label="Next"><svg width="11" height="9" aria-hidden="true"><path d="M0 0h1v1h1v1h1v1h1v1h1v1H4v1H3v1H2v1H1v1H0zM4 0h1v1h1v1h1v1h1v1h1v1H8v1H7v1H6v1H5v1H4zM9 0h2v9H9z"/></svg></button>
+                    <span class="field-sm grow" id="mp-time">00:00 (sec)</span>
+                </div>
+            </div>
+            <footer class="statusbar" id="viewer-bar">
                 <button class="btn" type="button" id="viewer-prev"><span>&lt; <u>B</u>ack</span></button>
                 <button class="btn" type="button" id="viewer-next"><span><u>N</u>ext &gt;</span></button>
                 <span class="field-sm grow" id="viewer-pos"></span>
