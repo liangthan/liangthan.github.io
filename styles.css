@@ -212,6 +212,24 @@ html:not(.js) .tab-panel[hidden] { display: block; }
     @keyframes zoom { from { clip-path: inset(48%); } to { clip-path: inset(0); } }
 }
 @media (max-width: 640px) {
-    .js #win-welcome { inset: 16px 16px auto !important; }
+    :root { --taskbar-h: 40px; }
+    body { font-size: 13px; }
+    .titlebar h2 { font-size: 13px; }
+    .titlebar { height: 36px; }
+    .ctl { width: 34px; height: 32px; }
+    .btn { min-height: 34px; }
+    .menubar span { padding: 4px 8px; }
+    .project h3, .tip-title { font-size: 13px; }
+    .notepad { font-size: 15px; }
+    .tabs [role="tab"] { min-height: 34px; padding: 0 10px; }
+    .tabs [aria-selected="true"] { min-height: 36px; padding: 0 12px; }
+    .start-btn, .tasks .btn, .tray { height: 34px; }
+    .start-menu button { min-height: 44px; padding: 6px 24px 6px 6px; }
+    /* Small dialogs stay fitted instead of filling the phone */
+    .js #win-welcome, .js #win-skills, .js #win-contact, .js #win-bin { inset: 16px 16px auto !important; width: auto !important; min-width: 0; max-height: calc(100% - 32px); }
+    /* Bigger, roomier desktop icons */
+    .icons { grid-template-columns: repeat(auto-fill, 96px); row-gap: 28px; inset: 24px 16px; overflow-y: auto; }
+    .icon { width: 96px; gap: 6px; }
+    .icon > svg { width: 48px; height: 48px; }
 }
 #t-welcome svg { display: none; }
