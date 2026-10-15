@@ -4,167 +4,315 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Personal website of Liang Than - Software Developer">
+    <meta name="theme-color" content="#008080">
     <title>Liang Than | Personal Website</title>
+    <link rel="preload" href="fonts/ms_sans_serif.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="styles.css">
+    <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="container">
-                <h1 class="logo">LT</h1>
-                <ul class="nav-links">
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </div>
+    <!-- Pixel icon set. 32x32 grid, crisp edges. -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <defs>
+            <symbol id="i-computer" viewBox="0 0 32 32">
+                <path fill="#000" d="M4 3h24v19H4z"/>
+                <path fill="#c0c0c0" d="M5 4h22v17H5z"/>
+                <path fill="#fff" d="M5 4h22v1H6v16H5z"/>
+                <path fill="#000" d="M8 7h16v11H8z"/>
+                <path fill="#008080" d="M9 8h14v9H9z"/>
+                <path fill="#00ffff" d="M10 9h5v1h-5zM10 11h8v1h-8z"/>
+                <path fill="#000" d="M11 22h10v2H11zM6 24h20v5H6z"/>
+                <path fill="#c0c0c0" d="M7 25h18v3H7z"/>
+                <path fill="#808080" d="M19 26h4v1h-4z"/>
+                <path fill="#00ff00" d="M9 26h2v1H9z"/>
+            </symbol>
+            <symbol id="i-folder" viewBox="0 0 32 32">
+                <path fill="#000" d="M2 7h10l2 2h16v19H2z"/>
+                <path fill="#c0c000" d="M3 8h8l2 2h16v17H3z"/>
+                <path fill="#ffff80" d="M3 12h26v15H3z"/>
+                <path fill="#fff" d="M3 12h26v1H3z"/>
+                <path fill="#c0c000" d="M3 26h26v1H3z"/>
+            </symbol>
+            <symbol id="i-text" viewBox="0 0 32 32">
+                <path fill="#000" d="M6 2h15l6 6v22H6z"/>
+                <path fill="#fff" d="M7 3h13v6h6v20H7z"/>
+                <path fill="#808080" d="M21 4l4 4h-4z"/>
+                <path fill="#000080" d="M9 11h14v1H9zM9 14h12v1H9zM9 17h14v1H9zM9 20h9v1H9zM9 23h13v1H9z"/>
+            </symbol>
+            <symbol id="i-mail" viewBox="0 0 32 32">
+                <path fill="#000" d="M2 8h28v18H2z"/>
+                <path fill="#fff" d="M3 9h26v16H3z"/>
+                <path fill="#808080" d="M3 9h2l11 8 11-8h2v1L16 19 3 10z"/>
+                <path fill="#c0c0c0" d="M3 25l9-8h1l-9 8zM29 25l-9-8h-1l9 8z"/>
+                <path fill="#ff0000" d="M23 11h4v4h-4z"/>
+            </symbol>
+            <symbol id="i-chip" viewBox="0 0 32 32">
+                <path fill="#808080" d="M10 4h2v4h-2zM15 4h2v4h-2zM20 4h2v4h-2zM10 24h2v4h-2zM15 24h2v4h-2zM20 24h2v4h-2zM4 10h4v2H4zM4 15h4v2H4zM4 20h4v2H4zM24 10h4v2h-4zM24 15h4v2h-4zM24 20h4v2h-4z"/>
+                <path fill="#000" d="M7 7h18v18H7z"/>
+                <path fill="#404040" d="M8 8h16v16H8z"/>
+                <path fill="#808080" d="M8 8h16v1H9v15H8z"/>
+                <path fill="#ffff00" d="M12 12h8v8h-8z"/>
+                <path fill="#c0c000" d="M13 13h6v6h-6z"/>
+            </symbol>
+            <symbol id="i-bin" viewBox="0 0 32 32">
+                <path fill="#000" d="M7 7h18v2l-2 20H9L7 9z"/>
+                <path fill="#c0c0c0" d="M8 8h16v1l-2 19H10L8 9z"/>
+                <path fill="#fff" d="M9 9h2v18h-1z"/>
+                <path fill="#808080" d="M13 11h1v15h-1zM16 11h1v15h-1zM19 11h1v15h-1z"/>
+                <path fill="#008000" d="M14 3h4v1h2v2h-2v-1h-4v1h-2v-2h2z"/>
+            </symbol>
+            <symbol id="i-logo" viewBox="0 0 16 16">
+                <path fill="#000080" d="M1 2h3v10h5v3H1z"/>
+                <path fill="#ff0000" d="M7 1h8v3h-2.5v9H9.5V4H7z"/>
+            </symbol>
+            <symbol id="i-shutdown" viewBox="0 0 32 32">
+                <path fill="#000" d="M4 6h24v17H4z"/>
+                <path fill="#000080" d="M5 7h22v15H5z"/>
+                <path fill="#ffff00" d="M15 10h2v7h-2z"/>
+                <path fill="#ffff00" d="M11 12h2v6h1v1h4v-1h1v-6h2v7h-1v1h-1v1h-6v-1h-1v-1h-1z"/>
+                <path fill="#c0c0c0" d="M10 24h12v2h4v2H6v-2h4z"/>
+            </symbol>
+        </defs>
+    </svg>
+
+    <main class="desktop" id="desktop">
+        <nav class="icons" aria-label="Desktop">
+            <button class="icon" data-open="about" type="button">
+                <svg width="32" height="32"><use href="#i-computer"/></svg>
+                <span>About Me</span>
+            </button>
+            <button class="icon" data-open="projects" type="button">
+                <svg width="32" height="32"><use href="#i-folder"/></svg>
+                <span>Projects</span>
+            </button>
+            <button class="icon" data-open="skills" type="button">
+                <svg width="32" height="32"><use href="#i-chip"/></svg>
+                <span>Skills</span>
+            </button>
+            <button class="icon" data-open="contact" type="button">
+                <svg width="32" height="32"><use href="#i-mail"/></svg>
+                <span>Contact</span>
+            </button>
+            <button class="icon" data-open="readme" type="button">
+                <svg width="32" height="32"><use href="#i-text"/></svg>
+                <span>README.txt</span>
+            </button>
+            <button class="icon" data-open="bin" type="button">
+                <svg width="32" height="32"><use href="#i-bin"/></svg>
+                <span>Recycle Bin</span>
+            </button>
         </nav>
-    </header>
 
-    <main>
-        <!-- Hero Section -->
-        <section id="hero" class="hero">
-            <div class="container">
-                <div class="hero-content">
-                    <h1 class="hero-title">Hi, I'm <span class="highlight">Liang Than</span></h1>
-                    <p class="hero-subtitle">Software Developer & Problem Solver</p>
-                    <p class="hero-description">Building elegant solutions to complex problems</p>
-                    <div class="hero-buttons">
-                        <a href="#projects" class="btn btn-primary">View My Work</a>
-                        <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+        <!-- Welcome -->
+        <section class="window" id="win-welcome" data-title="Welcome" data-icon="i-logo" aria-labelledby="t-welcome">
+            <header class="titlebar">
+                <h2 id="t-welcome">Welcome</h2>
+                <div class="controls"><button class="ctl ctl-close" type="button" aria-label="Close"></button></div>
+            </header>
+            <div class="win-body welcome">
+                <p class="welcome-head">Welcome to <b>Liang</b><span>95</span></p>
+                <div class="welcome-row">
+                    <div class="field welcome-tip">
+                        <p class="tip-title">Did you know...</p>
+                        <p>I'm <b>Liang Than</b>, a software developer and problem solver. I build efficient, scalable, user-friendly applications.</p>
+                        <p>To look around, double-click any icon on the desktop, or click the Start button.</p>
+                    </div>
+                    <div class="welcome-actions">
+                        <button class="btn" type="button" data-open="projects"><span><u>P</u>rojects</span></button>
+                        <button class="btn" type="button" data-open="about"><span><u>A</u>bout Me</span></button>
+                        <button class="btn" type="button" data-open="contact"><span><u>C</u>ontact</span></button>
+                        <hr class="etched">
+                        <button class="btn btn-default" type="button" data-close><span><u>C</u>lose</span></button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- About Section -->
-        <section id="about" class="about">
-            <div class="container">
-                <h2 class="section-title">About Me</h2>
-                <div class="about-content">
-                    <div class="about-text">
-                        <p>
-                            I'm a passionate software developer with a focus on creating efficient,
-                            scalable, and user-friendly applications. With experience in full-stack
-                            development, I enjoy tackling challenging problems and learning new technologies.
-                        </p>
-                        <p>
-                            When I'm not coding, you can find me exploring new technologies, contributing
-                            to open source projects, or sharing knowledge with the developer community.
-                        </p>
-                    </div>
+        <!-- About -->
+        <section class="window" id="win-about" data-title="About Me.txt - Notepad" data-icon="i-text" aria-labelledby="t-about">
+            <header class="titlebar">
+                <h2 id="t-about"><svg width="16" height="16"><use href="#i-text"/></svg>About Me.txt - Notepad</h2>
+                <div class="controls">
+                    <button class="ctl ctl-min" type="button" aria-label="Minimize"></button>
+                    <button class="ctl ctl-max" type="button" aria-label="Maximize"></button>
+                    <button class="ctl ctl-close" type="button" aria-label="Close"></button>
                 </div>
+            </header>
+            <div class="menubar" aria-hidden="true"><span><u>F</u>ile</span><span><u>E</u>dit</span><span><u>S</u>earch</span><span><u>H</u>elp</span></div>
+            <div class="win-body field notepad" tabindex="0">
+<p>Hi, I'm Liang Than.
+Software Developer &amp; Problem Solver.
+Building elegant solutions to complex problems.</p>
+<p>I'm a passionate software developer with a focus on creating efficient, scalable, and user-friendly applications. With experience in full-stack development, I enjoy tackling challenging problems and learning new technologies.</p>
+<p>When I'm not coding, you can find me exploring new technologies, contributing to open source projects, or sharing knowledge with the developer community.</p>
             </div>
         </section>
 
-        <!-- Skills Section -->
-        <section id="skills" class="skills">
-            <div class="container">
-                <h2 class="section-title">Skills & Technologies</h2>
-                <div class="skills-grid">
-                    <div class="skill-card">
-                        <h3>Frontend</h3>
-                        <ul>
-                            <li>HTML5 & CSS3</li>
-                            <li>JavaScript (ES6+)</li>
-                            <li>React / Vue</li>
-                            <li>Responsive Design</li>
-                        </ul>
-                    </div>
-                    <div class="skill-card">
-                        <h3>Backend</h3>
-                        <ul>
-                            <li>Node.js</li>
-                            <li>Python</li>
-                            <li>RESTful APIs</li>
-                            <li>Database Design</li>
-                        </ul>
-                    </div>
-                    <div class="skill-card">
-                        <h3>Tools & DevOps</h3>
-                        <ul>
-                            <li>Git & GitHub</li>
-                            <li>Docker</li>
-                            <li>CI/CD</li>
-                            <li>Cloud Platforms</li>
-                        </ul>
-                    </div>
+        <!-- Projects -->
+        <section class="window" id="win-projects" data-title="Projects" data-icon="i-folder" aria-labelledby="t-projects">
+            <header class="titlebar">
+                <h2 id="t-projects"><svg width="16" height="16"><use href="#i-folder"/></svg>C:\Projects</h2>
+                <div class="controls">
+                    <button class="ctl ctl-min" type="button" aria-label="Minimize"></button>
+                    <button class="ctl ctl-max" type="button" aria-label="Maximize"></button>
+                    <button class="ctl ctl-close" type="button" aria-label="Close"></button>
                 </div>
-            </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section id="projects" class="projects">
-            <div class="container">
-                <h2 class="section-title">Featured Projects</h2>
-                <div class="projects-grid">
-                    <div class="project-card">
+            </header>
+            <div class="menubar" aria-hidden="true"><span><u>F</u>ile</span><span><u>E</u>dit</span><span><u>V</u>iew</span><span><u>H</u>elp</span></div>
+            <div class="win-body field explorer">
+                <article class="project">
+                    <svg width="32" height="32" aria-hidden="true"><use href="#i-folder"/></svg>
+                    <div>
                         <h3>Project One</h3>
                         <p>A brief description of your project and the technologies used to build it.</p>
-                        <div class="project-links">
-                            <a href="#" class="project-link">View Demo</a>
-                            <a href="#" class="project-link">Source Code</a>
-                        </div>
+                        <p class="links"><a href="#">View Demo</a><a href="#">Source Code</a></p>
                     </div>
-                    <div class="project-card">
+                </article>
+                <article class="project">
+                    <svg width="32" height="32" aria-hidden="true"><use href="#i-folder"/></svg>
+                    <div>
                         <h3>Project Two</h3>
                         <p>A brief description of your project and the technologies used to build it.</p>
-                        <div class="project-links">
-                            <a href="#" class="project-link">View Demo</a>
-                            <a href="#" class="project-link">Source Code</a>
-                        </div>
+                        <p class="links"><a href="#">View Demo</a><a href="#">Source Code</a></p>
                     </div>
-                    <div class="project-card">
+                </article>
+                <article class="project">
+                    <svg width="32" height="32" aria-hidden="true"><use href="#i-folder"/></svg>
+                    <div>
                         <h3>Project Three</h3>
                         <p>A brief description of your project and the technologies used to build it.</p>
-                        <div class="project-links">
-                            <a href="#" class="project-link">View Demo</a>
-                            <a href="#" class="project-link">Source Code</a>
-                        </div>
+                        <p class="links"><a href="#">View Demo</a><a href="#">Source Code</a></p>
                     </div>
+                </article>
+            </div>
+            <footer class="statusbar"><span class="field-sm">3 object(s)</span><span class="field-sm grow"></span></footer>
+        </section>
+
+        <!-- Skills -->
+        <section class="window" id="win-skills" data-title="System Properties" data-icon="i-chip" aria-labelledby="t-skills">
+            <header class="titlebar">
+                <h2 id="t-skills"><svg width="16" height="16"><use href="#i-chip"/></svg>System Properties</h2>
+                <div class="controls"><button class="ctl ctl-close" type="button" aria-label="Close"></button></div>
+            </header>
+            <div class="win-body">
+                <div class="tabs" role="tablist">
+                    <button role="tab" type="button" aria-selected="true" aria-controls="tab-fe" id="tb-fe">Frontend</button>
+                    <button role="tab" type="button" aria-selected="false" aria-controls="tab-be" id="tb-be" tabindex="-1">Backend</button>
+                    <button role="tab" type="button" aria-selected="false" aria-controls="tab-ops" id="tb-ops" tabindex="-1">Tools &amp; DevOps</button>
+                </div>
+                <div class="tab-panel" role="tabpanel" id="tab-fe" aria-labelledby="tb-fe">
+                    <fieldset><legend>Installed components</legend>
+                        <ul class="checks"><li>HTML5 &amp; CSS3</li><li>JavaScript (ES6+)</li><li>React / Vue</li><li>Responsive Design</li></ul>
+                    </fieldset>
+                </div>
+                <div class="tab-panel" role="tabpanel" id="tab-be" aria-labelledby="tb-be" hidden>
+                    <fieldset><legend>Installed components</legend>
+                        <ul class="checks"><li>Node.js</li><li>Python</li><li>RESTful APIs</li><li>Database Design</li></ul>
+                    </fieldset>
+                </div>
+                <div class="tab-panel" role="tabpanel" id="tab-ops" aria-labelledby="tb-ops" hidden>
+                    <fieldset><legend>Installed components</legend>
+                        <ul class="checks"><li>Git &amp; GitHub</li><li>Docker</li><li>CI/CD</li><li>Cloud Platforms</li></ul>
+                    </fieldset>
+                </div>
+                <div class="dialog-actions"><button class="btn btn-default" type="button" data-close>OK</button></div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section class="window" id="win-contact" data-title="Contact" data-icon="i-mail" aria-labelledby="t-contact">
+            <header class="titlebar">
+                <h2 id="t-contact"><svg width="16" height="16"><use href="#i-mail"/></svg>Contact</h2>
+                <div class="controls">
+                    <button class="ctl ctl-min" type="button" aria-label="Minimize"></button>
+                    <button class="ctl ctl-close" type="button" aria-label="Close"></button>
+                </div>
+            </header>
+            <div class="win-body">
+                <p>I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.</p>
+                <div class="contact-list">
+                    <a class="btn btn-link" href="mailto:your.email@example.com">
+                        <svg width="16" height="16" aria-hidden="true"><use href="#i-mail"/></svg>Email
+                    </a>
+                    <a class="btn btn-link" href="https://github.com/liangthan" target="_blank" rel="noopener noreferrer">
+                        <svg width="16" height="16" aria-hidden="true"><use href="#i-computer"/></svg>GitHub
+                    </a>
+                    <a class="btn btn-link" href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer">
+                        <svg width="16" height="16" aria-hidden="true"><use href="#i-text"/></svg>LinkedIn
+                    </a>
                 </div>
             </div>
         </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="contact">
-            <div class="container">
-                <h2 class="section-title">Get In Touch</h2>
-                <div class="contact-content">
-                    <p class="contact-text">
-                        I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
-                    </p>
-                    <div class="contact-links">
-                        <a href="mailto:your.email@example.com" class="contact-link">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                <polyline points="22,6 12,13 2,6"></polyline>
-                            </svg>
-                            Email
-                        </a>
-                        <a href="https://github.com/liangthan" class="contact-link" target="_blank" rel="noopener noreferrer">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                            </svg>
-                            GitHub
-                        </a>
-                        <a href="https://linkedin.com/in/yourprofile" class="contact-link" target="_blank" rel="noopener noreferrer">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                            </svg>
-                            LinkedIn
-                        </a>
-                    </div>
+        <!-- README -->
+        <section class="window" id="win-readme" data-title="README.txt - Notepad" data-icon="i-text" aria-labelledby="t-readme">
+            <header class="titlebar">
+                <h2 id="t-readme"><svg width="16" height="16"><use href="#i-text"/></svg>README.txt - Notepad</h2>
+                <div class="controls">
+                    <button class="ctl ctl-min" type="button" aria-label="Minimize"></button>
+                    <button class="ctl ctl-max" type="button" aria-label="Maximize"></button>
+                    <button class="ctl ctl-close" type="button" aria-label="Close"></button>
                 </div>
+            </header>
+            <div class="menubar" aria-hidden="true"><span><u>F</u>ile</span><span><u>E</u>dit</span><span><u>S</u>earch</span><span><u>H</u>elp</span></div>
+            <div class="win-body field notepad" tabindex="0">
+<p>LIANG95 - README
+
+Double-click icons to open them.
+Drag windows by their title bar.
+Start menu is bottom-left.
+
+Best viewed at 800x600 in 256 colors.</p>
             </div>
         </section>
+
+        <!-- Recycle Bin -->
+        <section class="window" id="win-bin" data-title="Recycle Bin" data-icon="i-bin" aria-labelledby="t-bin">
+            <header class="titlebar">
+                <h2 id="t-bin"><svg width="16" height="16"><use href="#i-bin"/></svg>Recycle Bin</h2>
+                <div class="controls"><button class="ctl ctl-close" type="button" aria-label="Close"></button></div>
+            </header>
+            <div class="win-body field explorer">
+                <article class="project">
+                    <svg width="32" height="32" aria-hidden="true"><use href="#i-text"/></svg>
+                    <div>
+                        <h3>old-portfolio.html</h3>
+                        <p>Gradient hero. Three cards. "Building elegant solutions." Deleted for being generic.</p>
+                    </div>
+                </article>
+            </div>
+            <footer class="statusbar"><span class="field-sm">1 object(s)</span><span class="field-sm grow"></span></footer>
+        </section>
+
+        <noscript><p class="noscript">JavaScript is off, so the desktop is shown as a page.</p></noscript>
     </main>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Liang Than. All rights reserved.</p>
-        </div>
+    <!-- Start menu -->
+    <div class="start-menu" id="start-menu" role="menu" aria-label="Start" hidden>
+        <div class="start-banner" aria-hidden="true"><b>Liang</b>95</div>
+        <ul>
+            <li><button role="menuitem" type="button" data-open="about"><svg width="32" height="32"><use href="#i-computer"/></svg><span><u>A</u>bout Me</span></button></li>
+            <li><button role="menuitem" type="button" data-open="projects"><svg width="32" height="32"><use href="#i-folder"/></svg><span><u>P</u>rojects</span></button></li>
+            <li><button role="menuitem" type="button" data-open="skills"><svg width="32" height="32"><use href="#i-chip"/></svg><span><u>S</u>kills</span></button></li>
+            <li><button role="menuitem" type="button" data-open="contact"><svg width="32" height="32"><use href="#i-mail"/></svg><span><u>C</u>ontact</span></button></li>
+            <li class="sep" role="separator"></li>
+            <li><button role="menuitem" type="button" data-shutdown><svg width="32" height="32"><use href="#i-shutdown"/></svg><span>Sh<u>u</u>t Down...</span></button></li>
+        </ul>
+    </div>
+
+    <footer class="taskbar">
+        <button class="btn start-btn" id="start-btn" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="start-menu">
+            <svg width="16" height="16" aria-hidden="true"><use href="#i-logo"/></svg><b>Start</b>
+        </button>
+        <div class="tasks" id="tasks"></div>
+        <div class="tray field-sm"><time id="clock"></time></div>
     </footer>
+
+    <div class="shutdown" id="shutdown" hidden>
+        <p>It's now safe to close this tab.</p>
+        <button class="btn" type="button" id="restart">Restart</button>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
