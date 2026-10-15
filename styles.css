@@ -125,6 +125,18 @@ hr.etched { border: 0; border-top: 1px solid var(--shadow); border-bottom: 1px s
 .win-body a:not(.btn) { color: #0000ee; }
 .win-body a:not(.btn):visited { color: #551a8b; }
 
+/* Photos */
+#win-photos { width: 600px; height: 440px; }
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; padding: 10px; align-content: start; }
+.thumb { display: flex; flex-direction: column; align-items: center; gap: 4px; color: #000 !important; text-decoration: none; }
+.thumb img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; background: var(--face); box-shadow: var(--sunken); padding: 2px; }
+.thumb:focus-visible { outline: none; }
+.thumb:focus-visible span, .thumb:hover span { background: var(--navy); color: #fff; }
+#win-viewer { width: 720px; height: 560px; }
+.viewer { display: grid; place-items: center; background: #000; padding: 0; box-shadow: var(--sunken); }
+.viewer img, .viewer video { max-width: 100%; max-height: 100%; display: block; }
+#win-viewer .statusbar { align-items: center; }
+
 /* Tabs / fieldset */
 .tabs { display: flex; position: relative; z-index: 1; padding-left: 2px; }
 .tabs [role="tab"] {
@@ -194,6 +206,7 @@ html:not(.js) .icons, html:not(.js) .controls, html:not(.js) .tabs, html:not(.js
 html:not(.js) .window { position: static; width: auto; height: auto; max-width: 720px; }
 .noscript { color: #fff; }
 html:not(.js) .tab-panel[hidden] { display: block; }
+html:not(.js) #win-viewer { display: none; }
 
 /* Small screens: every window maximized, icons as a grid */
 @media (max-width: 640px) {

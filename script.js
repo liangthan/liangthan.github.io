@@ -71,6 +71,7 @@ function focusNext() {
 
 function close(w) {
     w.classList.remove('open', 'active', 'max', 'min');
+    if (w.id === 'win-viewer') document.getElementById('viewer-stage').replaceChildren(); // stop video audio
     tasks.querySelector(`[data-win="${w.id}"]`)?.remove();
     focusNext();
 }
@@ -169,6 +170,30 @@ document.querySelectorAll('[role="tablist"]').forEach(list => {
     });
 });
 
+// Photo viewer.
+const thumbs = [...document.querySelectorAll('.thumb')];
+const stage = document.getElementById('viewer-stage');
+let shown = 0;
+function view(i) {
+    shown = (i + thumbs.length) % thumbs.length;
+    const t = thumbs[shown];
+    const isVideo = t.href.endsWith('.mp4');
+    const m = document.createElement(isVideo ? 'video' : 'img');
+    m.src = t.getAttribute('href');
+    if (isVideo) { m.controls = true; m.autoplay = true; m.playsInline = true; } else m.alt = t.textContent;
+    stage.replaceChildren(m);
+    document.getElementById('viewer-name').textContent = t.textContent + ' - Image Viewer';
+    document.getElementById('viewer-pos').textContent = `${shown + 1} of ${thumbs.length}`;
+    open('viewer');
+}
+thumbs.forEach((t, i) => t.addEventListener('click', e => { e.preventDefault(); view(i); }));
+document.getElementById('viewer-prev').addEventListener('click', () => view(shown - 1));
+document.getElementById('viewer-next').addEventListener('click', () => view(shown + 1));
+win('viewer').addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft') view(shown - 1);
+    if (e.key === 'ArrowRight') view(shown + 1);
+});
+
 // Start menu.
 function closeStart() { startMenu.hidden = true; startBtn.setAttribute('aria-expanded', 'false'); }
 startBtn.addEventListener('click', () => {
@@ -207,5 +232,5 @@ setInterval(tick, 10000);
 
 // Only hide the stacked fallback once everything above has run.
 document.documentElement.classList.add('js');
-const fromHash = { about: 'about', skills: 'skills', projects: 'projects', contact: 'contact' }[location.hash.slice(1)];
+const fromHash = { about: 'about', skills: 'skills', projects: 'projects', photos: 'photos', contact: 'contact' }[location.hash.slice(1)];
 open(fromHash || 'welcome');
